@@ -7,13 +7,11 @@ import flask
 import pickle
 import pandas as pd
 
+
 app = flask.Flask(__name__)
 with open('model.pkl', 'rb') as file:
     classifier = pickle.load(file)
-
-
-@app.route('/', methods=['POST', 'GET'])
-def prog():
+if __name__ == "__main__":
     matplotlib.rc("font", size=18)
     data = pd.read_excel("zad.xlsx")
     data = data.iloc[0:].values
@@ -35,7 +33,3 @@ def prog():
     plt.scatter(c2[0], numpy.mean(list_age), c2[2], marker="x", c="black")
     plt.scatter(c3[0], numpy.mean(list_age), c3[2], marker="x", c="black")
     plt.show()
-
-
-if __name__ == "__main__":
-    app.run(debug=True, host='0.0.0.0')
